@@ -1,53 +1,62 @@
 // In App.js in a new project
 
 import * as React from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-function HomeScreen({ navigation }) {
+function HomeScreen({ navigation, route }) {
+  React.useEffect(() => {
+    if (route.params?.post) {
+
+    }
+  }, [route.params?.post])
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Welcom to React Navigator </Text>
-      <Button title='Go To DetisScreen'
+      <Button
+        title='Create Post'
+        onPress={() => navigation.navigate('CreatePost')}
+      />
+      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
+    </View>
+  )
+}
+
+function CreatePostScreen({ navigation, route }) {
+  const { postText, setPosrText } = React.useState('');
+  return (
+    <>
+      <TextInput
+        multiline
+        placeholder='What is a post??'
+        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
+        value={postText}
+        onChange={setPosrText}
+      />
+      <Button
+        title="Done"
         onPress={() => {
-          navigation.navigate('Details', {
-            itemId: 0,
-            otherParam: 'anything you want here',
+          // Pass and merge params back to home screen
+          navigation.navigate({
+            name: 'Home',
+            params: { post: postText },
+            merge: true,
           });
         }}
+      />
+    </>
+  )
+}
 
-      />
-    </View>
-  );
-}
-function DetisScreen({ route, navigation }) {
-  const { itemId, otherParam } = route.params
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>DetisScreen</Text>
-      <Text> itemId : {JSON.stringify(itemId)}</Text>
-      <Text>otherParam : {JSON.stringify(otherParam)}</Text>
-      <Button
-        title="Go to Details "
-        onPress={() => navigation.navigate('Details', {
-          itemId: Math.floor(Math.random() * 100)
-        })
-        }
-      />
-      < Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-      <Button title="Go back" onPress={() => navigation.goBack()} />
-    </View>
-  );
-}
+
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Home Screen' }} />
-        <Stack.Screen name="Details" component={DetisScreen} />
+      <Stack.Navigator mode="modal">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="CreatePost" component={CreatePostScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

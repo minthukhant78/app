@@ -1,65 +1,76 @@
-// In App.js in a new project
+import React from 'react'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import Contacts from './src/pages/contats'
+import Information from './src/information'
+import Home from './src/pages/home'
+import Other from './src/other'
+import { FontAwesome } from '@expo/vector-icons'
+import 'react-native-gesture-handler';
 
-import * as React from 'react';
-import { View, Text, Button, TextInput } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator()
 
-function HomeScreen({ navigation, route }) {
-  React.useEffect(() => {
-    if (route.params?.post) {
-
-    }
-  }, [route.params?.post])
+function Tabs() {
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title='Create Post'
-        onPress={() => navigation.navigate('CreatePost')}
-      />
-      <Text style={{ margin: 10 }}>Post: {route.params?.post}</Text>
-    </View>
+    <Tab.Navigator
+      // screenOptions={{ headerShown: false }}
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName = 'home';
+          switch (route.name) {
+            case 'Home':
+              iconName = 'home'
+              break;
+            case 'Contatos':
+              iconName = 'users'
+              break;
+            case 'Mais...':
+              iconName = 'ellipsis-h'
+              break;
+          }
+          return <FontAwesome name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: 'tomato',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen name='Home' component={Home} />
+      <Tab.Screen name='Contatos' component={Contacts} />
+      <Tab.Screen name='Mais...' component={Other} />
+    </Tab.Navigator>
   )
 }
 
-function CreatePostScreen({ navigation, route }) {
-  const { postText, setPosrText } = React.useState('');
-  return (
-    <>
-      <TextInput
-        multiline
-        placeholder='What is a post??'
-        style={{ height: 200, padding: 10, backgroundColor: 'white' }}
-        value={postText}
-        onChange={setPosrText}
-      />
-      <Button
-        title="Done"
-        onPress={() => {
-          // Pass and merge params back to home screen
-          navigation.navigate({
-            name: 'Home',
-            params: { post: postText },
-            merge: true,
-          });
-        }}
-      />
-    </>
-  )
-}
-
-
-const Stack = createNativeStackNavigator();
-
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator mode="modal">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="CreatePost" component={CreatePostScreen} />
+      <Stack.Navigator screenOptions={{ headerShown: true }}>
+        <Stack.Screen name='Principal' component={Tabs} />
+        <Stack.Screen name='Information' component={Information} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
 
-export default App;
+// function NavigationByStack() {
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="Contacts" component={Contacts} />
+//       <Stack.Screen name="Information" component={Information} />
+//     </Stack.Navigator>
+//   );
+// }
+
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <Tab.Navigator>
+//         <Tab.Screen name='Home' component={Home} />
+//         <Tab.Screen name='Contatos' component={NavigationByStack} />
+//         <Tab.Screen name='Mais...' component={Other} />
+//       </Tab.Navigator>
+//     </NavigationContainer>
+//   )
+// }

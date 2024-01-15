@@ -36,7 +36,7 @@ function Tabs() {
         tabBarInactiveTintColor: 'gray',
       })}
     >
-      <Tab.Screen name='Home' component={Home} />
+      <Tab.Screen name='Main' component={Home} />
       <Tab.Screen name='Contatos' component={Contacts} />
       <Tab.Screen name='Mais...' component={Other} />
     </Tab.Navigator>
@@ -47,7 +47,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: true }}>
-        <Stack.Screen name='Principal' component={Tabs} />
+        <Stack.Screen name='Contacts' component={Tabs} />
         <Stack.Screen name='Information' component={Information} />
       </Stack.Navigator>
     </NavigationContainer>

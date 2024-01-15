@@ -2,8 +2,9 @@ export default [
     {
         id: 1,
         name: 'Min Thu Khant',
-        email: 'julianogaspar@gmail.com',
-        avatarUrl: 'https://cdn.pixabay.com/photo/2019/05/27/19/08/puppy-4233378_960_720.jpg',
+        email: 'minthukhantminthukhant78@gmail.com',
+        profissao : 'ဗမာ့နိုင်ငံေရးသမာ',
+        avatarUrl: 'https://images.unsplash.com/photo-1575936123452-b67c3203c357?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         phone : '093433456'
     },
     {

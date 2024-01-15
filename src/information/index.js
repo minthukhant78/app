@@ -22,8 +22,8 @@ export default function Information({ route, navigation }) {
                 <Card.Divider />
                 <View>
                     <Text style={styles.infoText}>Informações do contato</Text>
-                    <Text style={styles.text}>Nome: {route.params?.user.name}</Text>
-                    <Text style={styles.text}>Profissão: {route.params?.user.profissao}</Text>
+                    <Text style={styles.text}>Name: {route.params?.user.name}</Text>
+                    <Text style={styles.text}>Blog: {route.params?.user.profissao}</Text>
                     <Text style={styles.text}>E-mail: {route.params?.user.email}</Text>
                     <Text style={styles.text}>Phone: {route.params?.user.phone}</Text>
                 </View>
@@ -33,7 +33,7 @@ export default function Information({ route, navigation }) {
                 <View>
                     <AirbnbRating
                         count={5}
-                        reviews={['Good', 'VerGood', 'Bom', 'Muito bom', 'Ótimo']}
+                        reviews={['1', '2', '3', '4', '5']}
                         defaultRating={5}
                         size={20}
                         onFinishRating={ratingCompleted}
@@ -46,7 +46,7 @@ export default function Information({ route, navigation }) {
                 onPress={() => navigation.navigate('Contatos')}
             >
                 <FontAwesome name='arrow-left' size={23} color='#fff'></FontAwesome>
-                <Text style={styles.buttonText}>Voltar</Text>
+                <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
         </View>
     )
